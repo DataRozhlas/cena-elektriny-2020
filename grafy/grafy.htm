@@ -1,0 +1,606 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+
+</head>
+<body>
+
+<div style="width: 1000px; height: 600px;" id="casovarada"></div>
+
+<div style="width: 600px; height: 1000px;" id="cena"></div>
+
+<div style="width: 600px; height: 1000px;" id="zmena"></div>
+
+<div style="width: 1000px; height: 600px;" id="dane"></div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+
+var colors = ['#b80058','#ebac23','#008cf9','#006e00','#00bbad','#d163e6','#b24502','#ff9287', '#5954d6', '#00c6f8', '#878500', '#00a76c', '#bdbdbd'];
+
+var casovarada_roky = [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019];
+
+var casovarada_data = [
+  [0.154,0.193,0.163,0.178,0.191,0.201,0.197,0.184,0.213,0.257,0.260,0.266,0.259],
+  [0.180,0.193,0.183,0.187,0.185,0.203,0.186,0.190,0.207,0.202,0.204,0.199,0.190],
+  [0.187,0.193,0.214,0.211,0.228,0.237,0.247,0.218,0.220,0.224,0.214,0.230,0.255],
+  [0.176,0.202,0.183,0.199,0.220,0.220,0.216,0.225,0.234,0.230,0.225,0.237,0.222],
+  [0.116,0.120,0.131,0.148,0.150,0.158,0.188,0.177,0.178,0.167,0.174,0.183,0.182],
+  [0.156,0.167,0.164,0.173,0.185,0.197,0.202,0.208,0.210,0.205,0.205,0.212,0.216],
+  [0.162,0.167,0.165,0.175,0.188,0.200,0.208,0.216,0.220,0.215,0.212,0.219,0.221],
+  [0.099,0.108,0.107,0.115,0.131,0.129,0.126,0.124,0.123,0.128,0.129,0.137,0.144],
+  [0.111,0.107,0.106,0.120,0.127,0.134,0.141,0.155,0.157,0.160,0.160,0.165,0.175],
+  [0.152,0.173,0.166,0.164,0.171,0.215,0.213,0.209,0.207,0.211,0.193,0.205,0.205],
+  [0.162,0.167,0.156,0.170,0.189,0.209,0.218,0.228,0.220,0.217,0.211,0.224,0.225],
+  [null,0.221,0.193,0.188,0.203,0.229,0.230,0.233,0.241,0.230,0.210,0.219,0.237],
+  [0.180,0.233,0.185,0.228,0.262,0.320,0.278,0.268,0.202,0.183,0.205,0.245,0.251],
+  [0.151,0.137,0.149,0.206,0.202,0.210,0.227,0.215,0.206,0.197,0.175,0.170,0.194],
+  [0.109,0.140,0.154,0.160,0.201,0.199,0.196,0.190,0.245,0.245,0.230,0.214,0.233],
+  [0.144,0.139,0.156,0.145,0.140,0.144,0.136,0.146,0.147,0.144,0.132,0.137,0.146],
+  [0.202,0.234,0.270,0.267,0.272,0.272,0.231,0.204,0.205,0.200,0.183,0.182,0.183],
+  [0.131,0.214,0.208,0.226,0.220,0.219,0.217,0.156,0.158,0.159,0.156,0.155,0.154],
+  [0.206,0.211,0.213,0.234,0.244,0.259,0.278,0.285,0.283,0.287,0.285,0.280,0.268],
+  [0.165,0.167,0.170,0.161,0.164,0.170,0.174,0.165,0.170,0.147,0.139,0.153,0.183],
+  [0.226,0.193,0.218,0.231,0.239,0.261,0.251,0.244,0.249,0.249,0.249,0.239,0.236],
+  [0.192,0.184,0.189,0.201,0.229,0.259,0.273,0.287,0.293,0.294,0.274,0.274,0.260],
+  [0.163,0.162,0.170,0.175,0.178,0.184,0.181,0.180,0.183,0.188,0.180,0.181,0.187],
+  [0.205,0.199,0.198,0.216,0.221,0.229,0.258,0.242,0.265,0.254,0.254,0.253,0.278],
+  [0.111,0.123,0.111,0.132,0.133,0.159,0.199,0.215,0.217,0.209,0.197,0.200,0.189],
+  [0.202,0.217,0.230,0.245,0.249,0.252,0.247,0.229,0.229,0.237,0.212,0.212,0.230],
+  [0.144,0.142,0.157,0.170,0.179,0.191,0.206,0.204,0.204,0.208,0.195,0.199,0.203],
+  [0.129,0.157,0.143,0.135,0.148,0.156,0.165,0.170,0.170,0.171,0.169,0.182,0.197],
+  [0.156,0.169,0.179,0.197,0.224,0.251,0.252,0.265,0.265,0.256,0.241,0.271,0.262],
+  [0.137,0.153,0.144,0.154,0.159,0.153,0.154,0.146,0.146,0.158,0.154,0.164,0.176]
+];
+
+var casovarada_zeme = ['Belgie','Bulharsko','Česko','Dánsko','Estonsko','EU 28','eurozóna','Finsko','Francie','Chorvatsko','Irsko','Itálie','Kypr','Litva','Lotyšsko','Lucembursko','Maďarsko','Malta','Německo','Nizozemsko','Polsko','Portugalsko','Rakousko','Rumunsko','Řecko','Slovensko','Slovinsko','Spojené království','Španělsko','Švédsko'];
+
+var dane_data = [
+  [23.6,24.8,25.5,26.0,24.7,24.3,25.9,17.9,21.7,33.9,37.8,32.7,31.7],
+  [16.3,16.7,16.3,16.6,16.8,16.6,16.7,16.7,16.7,16.7,16.7,16.6,16.7],
+  [15.8,16.7,16.7,17.4,17.3,17.4,18.1,18.1,18.1,18.3,18.2,18.1,29.1],
+  [57.2,54.6,62.3,59.5,59.6,64.3,65.2,66.7,71.0,69.3,69.4,64.3,64.4],
+  [17.1,21.2,24.4,29.2,26.8,29.3,26.3,25.9,26.3,22.5,28.0,26.1,27.2],
+  [25.5,25.2,26.0,27.9,28.9,29.6,31.4,32.0,34.3,36.0,36.7,36.3,39.0],
+  [28.8,28.6,28.8,31.1,32.3,33.4,35.6,36.6,37.9,39.2,39.4,38.2,41.6],
+  [24.4,25.0,25.0,25.1,29.6,29.6,30.3,31.8,34.1,34.0,33.5,32.6,32.7],
+  [24.3,24.3,24.8,26.4,28.5,28.7,30.8,31.6,33.8,35.4,35.6,35.1,34.1],
+  [19.4,18.8,20.0,19.3,19.3,20.5,21.5,23.5,23.5,23.5,18.2,22.2,22.2],
+  [11.9,11.9,11.8,13.1,15.9,14.7,15.8,17.8,18.8,19.7,20.8,21.0,16.3],
+  [null,null,null,27.7,31.6,33.6,35.4,37.2,39.1,40.6,36.3,34.5,39.0],
+  [14.3,14.0,14.2,16.4,15.7,17.0,18.3,18.7,20.4,20.7,22.2,20.1,29.5],
+  [15.2,15.3,17.1,17.3,17.4,17.3,36.9,33.0,30.5,30.1,29.8,29.7,24.5],
+  [4.8,4.8,9.0,9.0,18.1,30.2,37.2,34.4,33.6,33.9,34.3,31.1,30.2],
+  [12.3,13.6,12.2,17.1,13.6,13.4,13.2,17.7,24.7,21.9,27.7,23.0,26.4],
+  [26.2,17.6,20.6,20.7,23.2,23.8,23.2,21.3,21.3,21.3,21.3,21.3,21.2],
+  [4.8,4.8,4.8,4.9,4.8,4.8,4.8,4.8,4.7,4.8,6.0,5.9,5.9],
+  [39.3,38.9,40.8,43.8,44.9,46.5,49.0,51.6,51.6,53.6,54.6,54.1,54.1],
+  [26.0,25.5,25.1,28.2,27.5,26.1,27.7,26.4,33.0,25.3,26.0,29.5,33.9],
+  [22.5,22.4,21.7,21.7,22.1,21.8,22.0,22.1,22.0,22.1,34.5,36.3,37.0],
+  [22.8,30.1,13.2,36.3,43.2,43.1,41.7,41.7,49.5,47.3,51.6,55.2,48.8],
+  [27.9,28.4,27.7,27.7,26.5,30.2,32.6,34.9,37.5,39.2,38.4,37.1,35.0],
+  [16.4,16.5,16.8,20.3,24.1,30.4,29.9,27.4,28.9,27.6,26.7,26.9,27.8],
+  [8.6,8.6,8.7,20.8,19.0,24.4,29.7,31.9,30.7,31.2,32.7,31.7,23.4],
+  [15.9,16.0,16.0,15.9,18.4,18.5,18.6,18.8,18.8,18.7,41.9,41.9,38.8],
+  [22.9,20.5,21.7,25.8,23.0,22.7,29.0,29.5,31.0,31.4,31.5,31.3,31.2],
+  [4.7,4.6,4.7,4.7,4.7,4.7,4.7,4.8,17.2,19.3,27.6,30.8,31.6],
+  [17.7,18.0,18.0,19.4,19.3,21.3,21.4,21.4,21.3,21.4,21.3,21.4,44.8],
+  [37.2,34.9,35.7,34.6,34.5,35.4,35.4,36.1,35.9,34.7,34.5,35.3,36.7]
+];
+
+var cena_data = [{"y":0.278}, {"y":0.268}, {"y":0.262}, {"y":0.260}, {"y":0.259}, {"y":0.255, "color":colors[1]}, {"y":0.251}, {"y":0.237}, {"y":0.236}, {"y":0.233}, {"y":0.230}, {"y":0.225}, {"y":0.222}, {"y":0.221, "color":"#aaa"}, {"y":0.216, "color":"#666"}, {"y":0.205}, {"y":0.203}, {"y":0.197}, {"y":0.194}, {"y":0.190}, {"y":0.189}, {"y":0.187}, {"y":0.183}, {"y":0.183}, {"y":0.182}, {"y":0.176}, {"y":0.175}, {"y":0.154}, {"y":0.146}, {"y":0.144}];
+
+var cena_zeme = ['Rumunsko','Německo','Španělsko','Portugalsko','Belgie','Česko','Kypr','Itálie','Polsko','Lotyšsko','Slovensko','Irsko','Dánsko','eurozóna','EU 28','Chorvatsko','Slovinsko','Spojené království','Litva','Bulharsko','Řecko','Rakousko','Maďarsko','Nizozemsko','Estonsko','Švédsko','Francie','Malta','Lucembursko','Finsko']
+
+var zmena_data = [{"y":19.6}, {"y":14.1}, {"y":10.9, "color":colors[1]}, {"y":9.9}, {"y":8.9}, {"y":8.5}, {"y":8.2}, {"y":8.2}, {"y":7.3}, {"y":6.6}, {"y":6.1}, {"y":5.1}, {"y":3.3}, {"y":2.4}, {"y":2.0}, {"y":1.9, "color":"#666"}, {"y":0.9, "color":"#aaa"}, {"y":0.5}, {"y":0.4}, {"y":0.0}, {"y":-0.5}, {"y":-0.6}, {"y":-1.3}, {"y":-2.6}, {"y":-3.3}, {"y":-4.3}, {"y":-4.5}, {"y":-5.1}, {"y":-5.5}, {"y":-6.3}];
+
+var zmena_zeme = ['Nizozemsko','Litva','Česko','Rumunsko','Lotyšsko','Slovensko','Itálie','Spojené království','Švédsko','Lucembursko','Francie','Finsko','Rakousko','Kypr','Slovinsko','EU 28','eurozóna','Maďarsko','Irsko','Chorvatsko','Estonsko','Malta','Polsko','Belgie','Španělsko','Německo','Bulharsko','Portugalsko','Řecko','Dánsko'];
+
+Highcharts.chart('casovarada', {
+    chart: {
+        type: 'line'
+    },
+
+    title: {
+        text: 'Cena elektřiny pro domácnosti'
+    },
+
+    subtitle: {
+        text: 'včetně daní a poplatků,<br/>v paritě kupní síly (PPS)'
+    },
+
+    xAxis: {
+        categories: casovarada_roky
+    },
+
+    yAxis: {
+        title: {
+            text: '',
+        },
+        labels: {
+            format: '{value} PPS/kWh'
+        },
+        min: 0
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+        valueSuffix: ' PPS/kWh'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nrg_pc_204&lang=en',
+        text: 'Eurostat'
+    },
+
+    plotOptions: {
+        line: {
+            marker: {
+                symbol: 'circle'
+            }
+        }
+    },
+
+    series: [{
+        name: casovarada_zeme[0],
+        data: casovarada_data[0],
+        color: colors[0],
+        visible: false
+    }, {
+        name: casovarada_zeme[1],
+        data: casovarada_data[1],
+        color: colors[1],
+        visible: false
+    }, {
+        name: casovarada_zeme[2],
+        data: casovarada_data[2],
+        color: colors[2]
+    }, {
+        name: casovarada_zeme[3],
+        data: casovarada_data[3],
+        color: colors[3],
+        visible: false
+    }, {
+        name: casovarada_zeme[4],
+        data: casovarada_data[4],
+        color: colors[4],
+        visible: false
+    }, {
+        name: casovarada_zeme[5],
+        data: casovarada_data[5],
+        color: '#666',
+        dashStyle: 'shortdash'
+    }, {
+        name: casovarada_zeme[6],
+        data: casovarada_data[6],
+        color: '#aaa',
+        dashStyle: 'dot'
+    }, {
+        name: casovarada_zeme[7],
+        data: casovarada_data[7],
+        color: colors[5],
+        visible: false
+    }, {
+        name: casovarada_zeme[8],
+        data: casovarada_data[8],
+        color: colors[6],
+        visible: false
+    }, {
+        name: casovarada_zeme[9],
+        data: casovarada_data[9],
+        color: colors[7],
+        visible: false
+    }, {
+        name: casovarada_zeme[10],
+        data: casovarada_data[10],
+        color: colors[8],
+        visible: false
+    }, {
+        name: casovarada_zeme[11],
+        data: casovarada_data[11],
+        color: colors[9],
+        visible: false
+    }, {
+        name: casovarada_zeme[12],
+        data: casovarada_data[12],
+        color: colors[10],
+        visible: false
+    }, {
+        name: casovarada_zeme[13],
+        data: casovarada_data[13],
+        color: colors[11],
+        visible: false
+    }, {
+        name: casovarada_zeme[14],
+        data: casovarada_data[14],
+        color: colors[12],
+        visible: false
+    }, {
+        name: casovarada_zeme[15],
+        data: casovarada_data[15],
+        color: colors[0],
+        visible: false
+    }, {
+        name: casovarada_zeme[16],
+        data: casovarada_data[16],
+        color: colors[3],
+        visible: false
+    }, {
+        name: casovarada_zeme[17],
+        data: casovarada_data[17],
+        color: colors[2],
+        visible: false
+    }, {
+        name: casovarada_zeme[18],
+        data: casovarada_data[18],
+        color: colors[1]
+    }, {
+        name: casovarada_zeme[19],
+        data: casovarada_data[19],
+        color: colors[4],
+        visible: false
+    }, {
+        name: casovarada_zeme[20],
+        data: casovarada_data[20],
+        color: colors[5],
+        visible: false
+    }, {
+        name: casovarada_zeme[21],
+        data: casovarada_data[21],
+        color: colors[6],
+        visible: false
+    }, {
+        name: casovarada_zeme[22],
+        data: casovarada_data[22],
+        color: colors[7],
+        visible: false
+    }, {
+        name: casovarada_zeme[23],
+        data: casovarada_data[23],
+        color: colors[8],
+        visible: false
+    }, {
+        name: casovarada_zeme[24],
+        data: casovarada_data[24],
+        color: colors[9],
+        visible: false
+    }, {
+        name: casovarada_zeme[25],
+        data: casovarada_data[25],
+        color: colors[10],
+        visible: false
+    }, {
+        name: casovarada_zeme[26],
+        data: casovarada_data[26],
+        color: colors[11],
+        visible: false
+    }, {
+        name: casovarada_zeme[27],
+        data: casovarada_data[27],
+        color: colors[12],
+        visible: false
+    }, {
+        name: casovarada_zeme[28],
+        data: casovarada_data[28],
+        color: colors[0],
+        visible: false
+    }, {
+        name: casovarada_zeme[29],
+        data: casovarada_data[29],
+        color: colors[1],
+        visible: false
+    }]
+});
+
+Highcharts.chart('cena', {
+    chart: {
+        type: 'bar'
+    },
+
+    title: {
+        text: 'Cena elektřiny pro domácnosti, 2019'
+    },
+
+    subtitle: {
+        text: 'včetně daní a poplatků,<br/>v paritě kupní síly (PPS)'
+    },
+
+    xAxis: {
+        categories: cena_zeme
+    },
+
+    yAxis: {
+        title: {
+            text: '',
+        },
+        labels: {
+            format: '{value} PPS/kWh'
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+        valueSuffix: ' PPS/kWh'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nrg_pc_204&lang=en',
+        text: 'Eurostat'
+    },
+
+    series: [{
+        name: 'cena',
+        data: cena_data,
+        color: colors[0]
+    }]
+});
+
+Highcharts.chart('zmena', {
+    chart: {
+        type: 'bar'
+    },
+
+    title: {
+        text: 'Cena elektřiny pro domácnosti, srovnání 2019/2018'
+    },
+
+    subtitle: {
+        text: 'včetně daní a poplatků'
+    },
+
+    xAxis: {
+        categories: zmena_zeme
+    },
+
+    yAxis: {
+        title: {
+            text: '',
+        },
+        labels: {
+            format: '{value} %'
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nrg_pc_204&lang=en',
+        text: 'Eurostat'
+    },
+
+    series: [{
+        name: 'změna',
+        data: zmena_data,
+        color: colors[0]
+    }]
+});
+
+Highcharts.chart('dane', {
+    chart: {
+        type: 'line'
+    },
+
+    title: {
+        text: 'Podíl daní na ceně elektřiny pro domácnosti'
+    },
+
+    subtitle: {
+        text: ''
+    },
+
+    xAxis: {
+        categories: casovarada_roky
+    },
+
+    yAxis: {
+        title: {
+            text: '',
+        },
+        labels: {
+            format: '{value} %'
+        },
+        min: 0
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nrg_pc_204&lang=en',
+        text: 'Eurostat'
+    },
+
+    plotOptions: {
+        line: {
+            marker: {
+                symbol: 'circle'
+            }
+        }
+    },
+
+    series: [{
+        name: casovarada_zeme[0],
+        data: dane_data[0],
+        color: colors[0],
+        visible: false
+    }, {
+        name: casovarada_zeme[1],
+        data: dane_data[1],
+        color: colors[1],
+        visible: false
+    }, {
+        name: casovarada_zeme[2],
+        data: dane_data[2],
+        color: colors[2]
+    }, {
+        name: casovarada_zeme[3],
+        data: dane_data[3],
+        color: colors[3]
+    }, {
+        name: casovarada_zeme[4],
+        data: dane_data[4],
+        color: colors[4],
+        visible: false
+    }, {
+        name: casovarada_zeme[5],
+        data: dane_data[5],
+        color: '#666',
+        dashStyle: 'shortdash'
+    }, {
+        name: casovarada_zeme[6],
+        data: dane_data[6],
+        color: '#aaa',
+        dashStyle: 'dot'
+    }, {
+        name: casovarada_zeme[7],
+        data: dane_data[7],
+        color: colors[5],
+        visible: false
+    }, {
+        name: casovarada_zeme[8],
+        data: dane_data[8],
+        color: colors[6],
+        visible: false
+    }, {
+        name: casovarada_zeme[9],
+        data: dane_data[9],
+        color: colors[7],
+        visible: false
+    }, {
+        name: casovarada_zeme[10],
+        data: dane_data[10],
+        color: colors[8],
+        visible: false
+    }, {
+        name: casovarada_zeme[11],
+        data: dane_data[11],
+        color: colors[9],
+        visible: false
+    }, {
+        name: casovarada_zeme[12],
+        data: dane_data[12],
+        color: colors[10],
+        visible: false
+    }, {
+        name: casovarada_zeme[13],
+        data: dane_data[13],
+        color: colors[11],
+        visible: false
+    }, {
+        name: casovarada_zeme[14],
+        data: dane_data[14],
+        color: colors[12],
+        visible: false
+    }, {
+        name: casovarada_zeme[15],
+        data: dane_data[15],
+        color: colors[2],
+        visible: false
+    }, {
+        name: casovarada_zeme[16],
+        data: dane_data[16],
+        color: colors[3],
+        visible: false
+    }, {
+        name: casovarada_zeme[17],
+        data: dane_data[17],
+        color: colors[0]
+    }, {
+        name: casovarada_zeme[18],
+        data: dane_data[18],
+        color: colors[1]
+    }, {
+        name: casovarada_zeme[19],
+        data: dane_data[19],
+        color: colors[4],
+        visible: false
+    }, {
+        name: casovarada_zeme[20],
+        data: dane_data[20],
+        color: colors[5],
+        visible: false
+    }, {
+        name: casovarada_zeme[21],
+        data: dane_data[21],
+        color: colors[6],
+        visible: false
+    }, {
+        name: casovarada_zeme[22],
+        data: dane_data[22],
+        color: colors[7],
+        visible: false
+    }, {
+        name: casovarada_zeme[23],
+        data: dane_data[23],
+        color: colors[8],
+        visible: false
+    }, {
+        name: casovarada_zeme[24],
+        data: dane_data[24],
+        color: colors[9],
+        visible: false
+    }, {
+        name: casovarada_zeme[25],
+        data: dane_data[25],
+        color: colors[10],
+        visible: false
+    }, {
+        name: casovarada_zeme[26],
+        data: dane_data[26],
+        color: colors[11],
+        visible: false
+    }, {
+        name: casovarada_zeme[27],
+        data: dane_data[27],
+        color: colors[12],
+        visible: false
+    }, {
+        name: casovarada_zeme[28],
+        data: dane_data[28],
+        color: colors[0],
+        visible: false
+    }, {
+        name: casovarada_zeme[29],
+        data: dane_data[29],
+        color: colors[1],
+        visible: false
+    }]
+});
+
+
+</script>
+</html>
